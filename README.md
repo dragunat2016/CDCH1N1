@@ -57,13 +57,14 @@ Compared gender to vaccination status
 ![Gender_Vacc_Status](/Images/Gender_Seasonal_Flu.png)
 
 ## Data Preparation
+
 Here is the process we followed for data preparation
 
-Dropped columns not related to Seasonal: 'h1n1_concern', 'h1n1_knowledge','doctor_recc_h1n1','opinion_h1n1_vacc_effective', 'opinion_h1n1_risk','opinion_h1n1_sick_from_vacc',
-Drop Columns: health insurance, employment_industry, employment occupation, income_povery
-drop rows: h1n1_, behavioral_, opinion_h1n1_vacc_effective, opinion_h1n1_risk, opinion_h1n1_sick_from_vacc, household_adults, household_children
-fill with median: doctor_recc_*, health_worker
-fill with mode: chronic_med_cond, child_under_6_months, health_worker, education, marital_status, rent_or_own,employment_status
+First dropped H1N1 columns since they are not related to the target, seasonal flu vaccination status.
+Reviewed the missing values in each feature.
+Columns with between 40-60% of the data missing were dropped. Those were health insurance, employment industry, employment occupation, income povery.
+Rows were dropped where the overall missing data was under 1%: Those columns were behavioral_avoidance, behavioral_face_mask,behavioral_wash_hands, behavioral_large_gatherings, behavioral_outside_home,behavioral_touch_face,opinion_seas_vacc_effective,opinion_seas_risk, opinion_seas_sick_from_vacc,household_children,household_adults.
+Rows where the amount of missing data was between 1-10% were filled with either the median for numeric or the mode for categorical data. 5a. Columns where the strategy was the fill with the median: doctor_recc_*, health_worker 5b. Columns where the strategy was too fill with the mode: chronic_med_cond, child_under_6_months, health_worker, education, marital_status, rent_or_own,employment_status
 
 ## Modeling
 
@@ -100,6 +101,18 @@ We calculated the following metrics to evaluate these models against one-another
 
 ![Model_Comparison](/Images/Metrics_Eval_bar.png)
 
+### Feature Importance
+
+In order to determine feature importance in logistical regression, the coefficients and the statistical significance are evaluated.
+
+Coefficients that are high in magnitude and that have a high statistical significance are deemed off importance.
+
+The features that were not statistically significant and there not included were behavioral_antiviral_meds, behavioral_large_gatherings, behavioral_outside_home, behavioral_face_mask, child_under_6_months, opionion_seas_vacc_effective.
+
+The doctor's recommendation for seasonal flu was determined to be the most importance feature.
+
+![Feature_Importance](/Images/Feature_Importance.png)
+
 ### Final Model Evaluation
 
 All models have fairly close accuracy, recall, precision, and roc-auc scores. Based on the business problem, we would want to reduce the number of false negatives. A false negative implies that someone was not vaccinated, was predicted to not need a vaccination. That means that this person would be missed if this model would target whom to outreach.
@@ -107,7 +120,6 @@ All models have fairly close accuracy, recall, precision, and roc-auc scores. Ba
 As a result, the logistic regression model and the Support Vector machine model are the top models. Both have accuracy scores of around 76% and recall of 76%.
 
 It seems like the baseline model using logistical regression performed better on the test data with a higher recall and accuracy score. As a result, the final model for this project will be the Logistical regression model.
-
 
 
 ## Future Work
