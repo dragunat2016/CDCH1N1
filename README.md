@@ -124,3 +124,8 @@ It seems like the baseline model using logistical regression performed better on
 
 ## Future Work
 * Consider splitting the data by other aspects like age, race, etc. We optimized on reducing false negatives to save lives. However, the flu is generally fatal to those in certain groups or who have other demographics. We may want to use models that optimize on reducing false negatives in those to save lives. For those who are healthy, getting the flu is not as detrimental. Having too many false positives in those demographics would be a waste of resources. Optimizing on reducing the false positives in those age groups might be more beneficial.
+
+### Contact Information
+
+LinkedIn: https://www.linkedin.com/in/dhruv-ragunathan-908993b1/ 
+Github: https://github.com/dragunat2016/CDCH1N1 
